@@ -8,32 +8,31 @@ import java.util.List;
 @Component
 public class Calculation {
 
-    public double findMin(List<Double> listOfTimeModel) {
+    public double findMin(List<Double> listOfTimes) {
         double min = 0;
 
-        if (!listOfTimeModel.isEmpty()) {
-            min = listOfTimeModel.stream().min(Double::compareTo).get();
+        if (!listOfTimes.isEmpty()) {
+            min = listOfTimes.stream().min(Double::compareTo).get();
         }
         return min;
     }
 
-    public double findMax(List<Double> listOfTimeModel) {
+    public double findMax(List<Double> listOfTimes) {
         double max = 0;
 
-        if (!listOfTimeModel.isEmpty()) {
-            max = listOfTimeModel.stream().max(Double::compareTo).get();
+        if (!listOfTimes.isEmpty()) {
+            max = listOfTimes.stream().max(Double::compareTo).get();
         }
         return max;
     }
 
-    public double findAverage(List<Double> listOfTimeModel) {
+    public double findAverage(List<Double> listOfTimes) {
         double result = 0;
 
-        if (!listOfTimeModel.isEmpty()) {
-            result = listOfTimeModel.stream().mapToDouble(Double::doubleValue).average().getAsDouble();
+        if (!listOfTimes.isEmpty()) {
+            result = listOfTimes.stream().mapToDouble(Double::doubleValue).average().getAsDouble();
         }
         return result;
     }
-
 
 }

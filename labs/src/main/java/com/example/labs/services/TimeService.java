@@ -23,6 +23,7 @@ public class TimeService {
         this.cache = cache;
     }
 
+
     public double calculate(double distance, double speed) throws DivideException {
         double time = distance / speed;
         if (Double.isInfinite(time) || Double.isNaN(time)) {
@@ -71,6 +72,5 @@ public class TimeService {
         }
         return time;
     }
-
 
 }
