@@ -1,6 +1,5 @@
 package com.example.labs.controllers;
 
-import com.example.labs.async.ResultAsync;
 import com.example.labs.calculation.Calculation;
 import com.example.labs.counter.Counter;
 import com.example.labs.counter.CounterThread;
@@ -9,7 +8,6 @@ import com.example.labs.exceptions.DivideException;
 import com.example.labs.exceptions.ErrorResponse;
 import com.example.labs.models.Result;
 import com.example.labs.models.TimeModel;
-import com.example.labs.services.TimeControllerService;
 import com.example.labs.services.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Time;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,18 +28,12 @@ public class TimeController {
     private final TimeModel timeModel;
     private final Calculation calculation;
 
-    private final TimeControllerService timeControllerService;
-
-    private final ResultAsync resultAsync;
-
     @Autowired
     public TimeController(TimeService timeService,
-                          TimeModel timeModel, Calculation calculation, TimeControllerService timeControllerService, ResultAsync resultAsync) {
+                          TimeModel timeModel, Calculation calculation) {
         this.timeService = timeService;
         this.timeModel = timeModel;
         this.calculation = calculation;
-        this.timeControllerService = timeControllerService;
-        this.resultAsync = resultAsync;
     }
 
     @ExceptionHandler(BadArgumentsException.class)
@@ -98,29 +90,5 @@ public class TimeController {
 
         return ResponseEntity.ok(calculations);
     }
-
-
-    @PostMapping("/write")
-    public Integer methodDecode(@RequestBody TimeModel result)  {
-
-        TimeModel result1 = timeControllerService.findByDistanceAndSpeed(result.getDistance(),result.getSpeed());
-
-        if(result1 == null){
-            int id = resultAsync.createHalfEmptyModel(result);
-            resultAsync.computeAsync(id);
-
-            return id;
-        }else{
-           return result1.getId();
-        }
-
-    }
-
-    @GetMapping("/find/{id}")
-    public TimeModel result(@PathVariable("id") int id){
-        return timeControllerService.findOne(id);
-    }
-
-
 
 }

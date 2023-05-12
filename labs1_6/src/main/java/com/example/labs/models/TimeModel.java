@@ -1,34 +1,12 @@
 package com.example.labs.models;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
 import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name = "time")
 @Component
 public class TimeModel {
-
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-
-    @Column(name = "distance")
     private double distance;
-
-    @Column(name = "speed")
     private double speed;
-
-    @Column(name = "time")
     private double time;
-
 
     public double getDistance() {
         return distance;
@@ -53,8 +31,4 @@ public class TimeModel {
     public void setTime(double time) {
         this.time = time;
     }
-    public void setId(int id) {this.id = id;}
-
-    public int getId() {return id;}
-
 }
