@@ -36,24 +36,9 @@ public class TimeService {
         if (distance <= 0 || speed < 0) {
             throw new BadArgumentsException("Wrong parameters");
         }
+        if(speed == 0) throw new DivideException("Divided by zero");
     }
 
-    public void validate(List<Double> distances, List<Double> speeds) throws BadArgumentsException {
-
-        if (distances == null || speeds == null) {
-            throw new BadArgumentsException("Lists cannot be null");
-        }
-
-        if (distances.size() != speeds.size()) {
-            throw new BadArgumentsException("Lists sizes do not match");
-        }
-
-        for (int i = 0; i < distances.size(); i++) {
-            if (distances.get(i) <= 0 || speeds.get(i) < 0) {
-                throw new BadArgumentsException("Wrong parameters at index " + i);
-            }
-        }
-    }
 
     public double getTime(@RequestParam double distance, @RequestParam double speed) throws DivideException {
         double time;

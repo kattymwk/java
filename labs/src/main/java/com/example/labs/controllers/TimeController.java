@@ -17,6 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Time;
 import java.util.List;
@@ -100,8 +105,11 @@ public class TimeController {
     }
 
 
+
     @PostMapping("/write")
-    public Integer methodDecode(@RequestBody TimeModel result)  {
+    public ResponseEntity<Integer> methodDecode(@RequestBody TimeModel result) throws BadArgumentsException {
+
+        timeService.validate(result.getDistance(),result.getSpeed());
 
         TimeModel result1 = timeControllerService.findByDistanceAndSpeed(result.getDistance(),result.getSpeed());
 
@@ -109,9 +117,11 @@ public class TimeController {
             int id = resultAsync.createHalfEmptyModel(result);
             resultAsync.computeAsync(id);
 
-            return id;
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(id);
+            // return id;
         }else{
-           return result1.getId();
+            return ResponseEntity.ok(result1.getId());
+          // return result1.getId();
         }
 
     }
@@ -120,7 +130,5 @@ public class TimeController {
     public TimeModel result(@PathVariable("id") int id){
         return timeControllerService.findOne(id);
     }
-
-
 
 }

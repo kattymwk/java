@@ -13,7 +13,9 @@ public class TimeControllerService {
     private final ResultRepository resultRepository;
 
     @Autowired
-    public TimeControllerService(ResultRepository resultRepository){this.resultRepository = resultRepository;}
+    public TimeControllerService(ResultRepository resultRepository){
+        this.resultRepository = resultRepository;
+    }
 
 
     public void save(TimeModel result){

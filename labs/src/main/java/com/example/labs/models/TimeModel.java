@@ -13,12 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimeModel {
 
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
 
     @Column(name = "distance")
     private double distance;
@@ -33,7 +31,6 @@ public class TimeModel {
     public double getDistance() {
         return distance;
     }
-
     public void setDistance(double distance) {
         this.distance = distance;
     }
@@ -41,7 +38,6 @@ public class TimeModel {
     public double getSpeed() {
         return speed;
     }
-
     public void setSpeed(double speed) {
         this.speed = speed;
     }
@@ -49,12 +45,11 @@ public class TimeModel {
     public double getTime() {
         return time;
     }
-
     public void setTime(double time) {
         this.time = time;
     }
-    public void setId(int id) {this.id = id;}
 
+    public void setId(int id) {this.id = id;}
     public int getId() {return id;}
 
 }

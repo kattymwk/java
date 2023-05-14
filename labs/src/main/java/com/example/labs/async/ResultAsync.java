@@ -39,7 +39,6 @@ public class ResultAsync {
                Thread.sleep(15000);
 
                result.setTime(timeService.calculate(result.getDistance(),result.getSpeed()));
-
                resultService.save(result);
                return result.getId();
            } catch (InterruptedException e) {
